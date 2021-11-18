@@ -31,7 +31,7 @@ Get the secrets, persistent volume in place and apply the deployments for the `M
 
 You can check the status of the pods, services and deployments.
 
-## Creating database and schema
+## (DEPRECATED) Creating database and schema
 The API can only be used if the proper database and schemas are set. This can be done via the terminal.
 1. Connect to your `MySQL database` by setting up a temporary pod as a `mysql-client`: 
    `kubectl run -it --rm --image=mysql --restart=Never mysql-client -- mysql --host mysql --password=<super-secret-password>`
