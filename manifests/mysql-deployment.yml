@@ -31,12 +31,21 @@ spec:
         volumeMounts:
           - name: mysql-persistent-storage
             mountPath: /var/lib/mysql
+          - mountPath: /opt/poststart.sh
+            subPath: poststart.sh
+            name: hookvolume
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/bash", "-c", "/opt/poststart.sh"]
       volumes:
         - name: mysql-persistent-storage
           persistentVolumeClaim:
             claimName: mysql-pv-claim
-
-
+        - name: hookvolume
+          configMap:
+            name: sql-poststarthook
+            defaultMode: 0755
 ---
 apiVersion: v1
 kind: Service
@@ -51,4 +60,3 @@ spec:
     name: mysql
   selector:
     app: db
-  type: NodePort
